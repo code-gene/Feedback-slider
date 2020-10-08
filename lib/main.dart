@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:demoji/demoji.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 void main() {
 
@@ -24,17 +25,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  double ratings = 1.0;
+  double ratings = 0.0;
   String emoji = Demoji.neutral_face;
   String emojiLabel = 'COULD BE BETTER';
 
+  /* setState function for ratings updation */
   void ratingsUpdate() {
     setState(() {
       switch (ratings.round()) {
         case 0: {
-          ratings = 1.0;
-          emoji = Demoji.neutral_face;
-          emojiLabel = 'COULD BE BETTER';
+          ratings = 0.0;
+          emoji = Demoji.disappointed;
+          emojiLabel = 'UNSATISFIED';
           break;
         }
 
@@ -129,10 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white,
 
               child: Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 height: 450,
 
                 child: Column(
@@ -141,6 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.all(30.0),
 
+                      /* Emoji Label */
                       child: Text(
                         emojiLabel,
                         style: TextStyle(
@@ -150,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
 
+                    /* Actual Emoji */
                     Container(
                         height: 100,
                         width: 100,
@@ -161,26 +162,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         )
                     ),
 
+                    /* Star Ratings Update */
                     Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Slider(
-                        value: ratings,
-                        onChanged: (newTip) {
-                          ratings = newTip;
+                      child: SmoothStarRating(
+                        starCount: 5,
+                        isReadOnly: false,
+                        size: 40,
+                        color: Colors.blue[500],
+                        borderColor: Colors.blue,
+                        allowHalfRating: false,
+                        spacing: 1,
+                        rating: ratings,
+                        onRated: (value){
+                          ratings = value;
                           ratingsUpdate();
                         },
-                        min: 0,
-                        max: 5,
-                        activeColor: Colors.blue,
-                        inactiveColor: Colors.blue[100],
-                        divisions: 5,
+
                       ),
                     ),
+
+
+                    /* Slider */
+                    // Padding(
+                    //   padding: const EdgeInsets.only(left : 20.0, right : 20.0),
+                    //   child: Slider(
+                    //     value: ratings,
+                    //     onChanged: (newTip) {
+                    //       ratings = newTip;
+                    //       ratingsUpdate();
+                    //     },
+                    //     min: 0,
+                    //     max: 5,
+                    //     activeColor: Colors.blue,
+                    //     inactiveColor: Colors.blue[100],
+                    //     divisions: 5,
+                    //   ),
+                    // ),
 
                     Text(
                       'Your Ratings : $ratings',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

@@ -23,6 +23,7 @@ environment:
 dependencies:
   demoji: ^1.0.1
   syncfusion_flutter_sliders: ^18.3.38-beta
+  smooth_star_rating: ^1.1.1
   flutter:
     sdk: flutter
 
