@@ -31,6 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void ratingsUpdate() {
     setState(() {
       switch (ratings.round()) {
+        case 0: {
+          ratings = 1.0;
+          emoji = Demoji.neutral_face;
+          emojiLabel = 'COULD BE BETTER';
+          break;
+        }
+
         case 1:
           {
             ratings = 1.0;
@@ -79,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
+
       appBar: AppBar(
         elevation: 0.0,
         title: Text(
@@ -91,13 +99,17 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
+
       body: Padding(
         padding: EdgeInsets.all(20),
+
         child: Column(
           children: [
+
             SizedBox(
               height: 70,
             ),
+
             Text(
               'How do you rate our service ?',
               style: TextStyle(
@@ -115,16 +127,20 @@ class _HomeScreenState extends State<HomeScreen> {
               borderRadius: BorderRadius.circular(20),
               shadowColor: Colors.blueGrey[50],
               color: Colors.white,
+
               child: Container(
                 width: MediaQuery
                     .of(context)
                     .size
                     .width,
                 height: 450,
+
                 child: Column(
                   children: [
+
                     Padding(
                       padding: const EdgeInsets.all(30.0),
+
                       child: Text(
                         emojiLabel,
                         style: TextStyle(
@@ -133,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
+
                     Container(
                         height: 100,
                         width: 100,
@@ -143,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         )
                     ),
+
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Slider(
@@ -158,6 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         divisions: 5,
                       ),
                     ),
+
                     Text(
                       'Your Ratings : $ratings',
                       style: TextStyle(
@@ -165,9 +184,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+
                     SizedBox(
                       height: 50,
                     ),
+
                     RaisedButton(
                       color: Colors.blue,
                       shape: RoundedRectangleBorder(
